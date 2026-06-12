@@ -78,12 +78,11 @@ public class ToolEvents {
 	}
 
 	@SubscribeEvent
-	@SuppressWarnings("UnstableApiUsage")
-	public static void onKnightmetalToolDamage(LivingDamageEvent.Pre event) {
+	public static void onKnightmetalToolDamage(LivingIncomingDamageEvent event) {
 		LivingEntity target = event.getEntity();
 
 		DamageContainer container = event.getContainer();
-		if (!target.level().isClientSide() && container.getSource().getDirectEntity() instanceof LivingEntity living) {
+		if (!event.isCanceled() && !target.level().isClientSide() && container.getSource().getDirectEntity() instanceof LivingEntity living) {
 			ItemStack weapon = living.getMainHandItem();
 
 			if (!weapon.isEmpty()) {
@@ -106,7 +105,6 @@ public class ToolEvents {
 	}
 
 	@SubscribeEvent
-	@SuppressWarnings("UnstableApiUsage")
 	public static void onMinotaurAxeCharge(LivingDamageEvent.Pre event) {
 		LivingEntity target = event.getEntity();
 		DamageContainer container = event.getContainer();
